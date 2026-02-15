@@ -1,0 +1,176 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+/////////////////////
+//// USERS & AUTH ///
+/////////////////////
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+
+  stores        Store[]
+  teamMembers  TeamMember[]
+  auditLogs    AuditLog[]
+  subscription Subscription?
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+///////////////////
+//// SAAS CORE ////
+///////////////////
+
+model Store {
+  id        String   @id @default(uuid())
+  name      String
+  ownerId  String
+  createdAt DateTime @default(now())
+
+  owner   User @relation(fields: [ownerId], references: [id])
+
+  products Product[]
+  orders   Order[]
+  members  TeamMember[]
+  events   AnalyticsEvent[]
+}
+
+model Subscription {
+  id          String @id @default(uuid())
+  userId      String @unique
+  plan        Plan
+  status      String
+  stripeSubId String?
+  startedAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+enum Plan {
+  free
+  pro
+  team
+}
+
+///////////////////
+//// TEAM ////////
+///////////////////
+
+model TeamMember {
+  id      String @id @default(uuid())
+  userId  String
+  storeId String
+  role    TeamRole
+
+  user  User  @relation(fields: [userId], references: [id])
+  store Store @relation(fields: [storeId], references: [id])
+
+  @@unique([userId, storeId])
+}
+
+enum TeamRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+///////////////////
+//// ECOMMERCE ////
+///////////////////
+
+model Product {
+  id        String   @id @default(uuid())
+  storeId   String
+  name      String
+  price     Float
+  stock     Int
+  createdAt DateTime @default(now())
+
+  store  Store @relation(fields: [storeId], references: [id])
+  items  OrderItem[]
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  storeId   String
+  total     Float
+  status    OrderStatus
+  createdAt DateTime @default(now())
+
+  store Store @relation(fields: [storeId], references: [id])
+  items OrderItem[]
+  payment Payment?
+}
+
+model OrderItem {
+  id        String @id @default(uuid())
+  orderId  String
+  productId String
+  quantity Int
+  price    Float
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+}
+
+enum OrderStatus {
+  pending
+  paid
+  shipped
+  canceled
+}
+
+model Payment {
+  id        String @id @default(uuid())
+  orderId  String @unique
+  provider String
+  amount   Float
+  status   String
+  createdAt DateTime @default(now())
+
+  order Order @relation(fields: [orderId], references: [id])
+}
+
+///////////////////
+//// ANALYTICS ///
+///////////////////
+
+model AnalyticsEvent {
+  id        String @id @default(uuid())
+  storeId   String
+  type      String   // page_view, purchase, signup, etc
+  value     Float?
+  createdAt DateTime @default(now())
+
+  store Store @relation(fields: [storeId], references: [id])
+}
+
+///////////////////
+//// AUDIT LOG ///
+///////////////////
+
+model AuditLog {
+  id        String @id @default(uuid())
+  userId   String?
+  action   String
+  entity   String?
+  entityId String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+}

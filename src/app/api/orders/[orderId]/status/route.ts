@@ -4,13 +4,13 @@ import { getCurrentUser } from "@/lib/auth";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { orderId: string } }
+  { params }: { params: Promise<{ orderId: string }> }
 ) {
   try {
     const user = await getCurrentUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { orderId } = params;
+    const { orderId } = await params;
     const { status } = await req.json();
 
   const allowed = [

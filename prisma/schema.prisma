@@ -213,7 +213,7 @@ model Customer {
   storeId   String
   name      String
   email     String?
-  password  String
+  password  String?
   createdAt DateTime @default(now())
 
   store  Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)

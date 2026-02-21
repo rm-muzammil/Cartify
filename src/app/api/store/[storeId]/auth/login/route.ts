@@ -26,6 +26,13 @@ export async function POST(
     );
   }
 
+  if (!customer || !customer.password) {
+  return NextResponse.json(
+    { error: "Invalid credentials or account not set up" }, 
+    { status: 401 }
+  );
+}
+
   const valid = await bcrypt.compare(password, customer.password);
 
   if (!valid) {

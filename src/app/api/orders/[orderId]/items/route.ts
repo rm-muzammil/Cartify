@@ -4,10 +4,10 @@ import { getCurrentUser } from "@/lib/auth";
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { orderId: string } }
+  { params }: { params: Promise<{ orderId: string }> }
 ) {
     try {
-      const {orderId} = params
+      const {orderId} = await params
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

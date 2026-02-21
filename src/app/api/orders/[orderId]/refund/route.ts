@@ -5,11 +5,11 @@ import { getCurrentUser } from "@/lib/auth";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-export async function POST(req: NextRequest, { params }: { params: { orderId: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ orderId: string }> }) {
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { orderId } = params;
+  const { orderId } = await params;
   const order = await prisma.order.findUnique({ where: { id: orderId }, include: { payment: true,items:{
     include:{
         product:true

@@ -6,9 +6,10 @@ import { stripe } from "@/lib/stripe";
 
 export async function POST(
   req: Request,
-  { params }: { params: { storeId: string } }
+  { params }: { params: Promise<{ storeId: string }> }
 ) {
   try {
+    const {storeId} = await params
     const cookieStore = await cookies();
 
     const token = cookieStore.get("customer_token")?.value;
@@ -22,7 +23,7 @@ export async function POST(
       storeId: string;
     };
 
-    if (decoded.storeId !== params.storeId) {
+    if (decoded.storeId !== storeId) {
       return NextResponse.json({ error: "Invalid store" }, { status: 403 });
     }
 
@@ -61,7 +62,7 @@ export async function POST(
     // Create Order (PENDING)
     const order = await prisma.order.create({
       data: {
-        storeId: params.storeId,
+        storeId: storeId,
         customerId: decoded.customerId,
         total,
         status: "pending",
@@ -73,7 +74,7 @@ export async function POST(
 
     // Get store Stripe account
     const store = await prisma.store.findUnique({
-      where: { id: params.storeId },
+      where: { id: storeId },
     });
 
     if (!store?.stripeAccountId) {

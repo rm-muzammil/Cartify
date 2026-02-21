@@ -158,7 +158,7 @@ export type CustomerGroupByOutputType = {
   storeId: string
   name: string
   email: string | null
-  password: string
+  password: string | null
   createdAt: Date
   _count: CustomerCountAggregateOutputType | null
   _min: CustomerMinAggregateOutputType | null
@@ -188,7 +188,7 @@ export type CustomerWhereInput = {
   storeId?: Prisma.StringFilter<"Customer"> | string
   name?: Prisma.StringFilter<"Customer"> | string
   email?: Prisma.StringNullableFilter<"Customer"> | string | null
-  password?: Prisma.StringFilter<"Customer"> | string
+  password?: Prisma.StringNullableFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
   orders?: Prisma.OrderListRelationFilter
@@ -199,7 +199,7 @@ export type CustomerOrderByWithRelationInput = {
   storeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   store?: Prisma.StoreOrderByWithRelationInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
@@ -214,7 +214,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   storeId?: Prisma.StringFilter<"Customer"> | string
   name?: Prisma.StringFilter<"Customer"> | string
   email?: Prisma.StringNullableFilter<"Customer"> | string | null
-  password?: Prisma.StringFilter<"Customer"> | string
+  password?: Prisma.StringNullableFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
   orders?: Prisma.OrderListRelationFilter
@@ -225,7 +225,7 @@ export type CustomerOrderByWithAggregationInput = {
   storeId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.CustomerCountOrderByAggregateInput
   _max?: Prisma.CustomerMaxOrderByAggregateInput
@@ -240,7 +240,7 @@ export type CustomerScalarWhereWithAggregatesInput = {
   storeId?: Prisma.StringWithAggregatesFilter<"Customer"> | string
   name?: Prisma.StringWithAggregatesFilter<"Customer"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
-  password?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Customer"> | Date | string
 }
 
@@ -248,7 +248,7 @@ export type CustomerCreateInput = {
   id?: string
   name: string
   email?: string | null
-  password: string
+  password?: string | null
   createdAt?: Date | string
   store: Prisma.StoreCreateNestedOneWithoutCustomersInput
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
@@ -259,7 +259,7 @@ export type CustomerUncheckedCreateInput = {
   storeId: string
   name: string
   email?: string | null
-  password: string
+  password?: string | null
   createdAt?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
 }
@@ -268,7 +268,7 @@ export type CustomerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   store?: Prisma.StoreUpdateOneRequiredWithoutCustomersNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
@@ -279,7 +279,7 @@ export type CustomerUncheckedUpdateInput = {
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
 }
@@ -289,7 +289,7 @@ export type CustomerCreateManyInput = {
   storeId: string
   name: string
   email?: string | null
-  password: string
+  password?: string | null
   createdAt?: Date | string
 }
 
@@ -297,7 +297,7 @@ export type CustomerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -306,7 +306,7 @@ export type CustomerUncheckedUpdateManyInput = {
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -417,7 +417,7 @@ export type CustomerCreateWithoutStoreInput = {
   id?: string
   name: string
   email?: string | null
-  password: string
+  password?: string | null
   createdAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
 }
@@ -426,7 +426,7 @@ export type CustomerUncheckedCreateWithoutStoreInput = {
   id?: string
   name: string
   email?: string | null
-  password: string
+  password?: string | null
   createdAt?: Date | string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
 }
@@ -465,7 +465,7 @@ export type CustomerScalarWhereInput = {
   storeId?: Prisma.StringFilter<"Customer"> | string
   name?: Prisma.StringFilter<"Customer"> | string
   email?: Prisma.StringNullableFilter<"Customer"> | string | null
-  password?: Prisma.StringFilter<"Customer"> | string
+  password?: Prisma.StringNullableFilter<"Customer"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Customer"> | Date | string
 }
 
@@ -473,7 +473,7 @@ export type CustomerCreateWithoutOrdersInput = {
   id?: string
   name: string
   email?: string | null
-  password: string
+  password?: string | null
   createdAt?: Date | string
   store: Prisma.StoreCreateNestedOneWithoutCustomersInput
 }
@@ -483,7 +483,7 @@ export type CustomerUncheckedCreateWithoutOrdersInput = {
   storeId: string
   name: string
   email?: string | null
-  password: string
+  password?: string | null
   createdAt?: Date | string
 }
 
@@ -507,7 +507,7 @@ export type CustomerUpdateWithoutOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   store?: Prisma.StoreUpdateOneRequiredWithoutCustomersNestedInput
 }
@@ -517,7 +517,7 @@ export type CustomerUncheckedUpdateWithoutOrdersInput = {
   storeId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -525,7 +525,7 @@ export type CustomerCreateManyStoreInput = {
   id?: string
   name: string
   email?: string | null
-  password: string
+  password?: string | null
   createdAt?: Date | string
 }
 
@@ -533,7 +533,7 @@ export type CustomerUpdateWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
 }
@@ -542,7 +542,7 @@ export type CustomerUncheckedUpdateWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
 }
@@ -551,7 +551,7 @@ export type CustomerUncheckedUpdateManyWithoutStoreInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -651,7 +651,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     storeId: string
     name: string
     email: string | null
-    password: string
+    password: string | null
     createdAt: Date
   }, ExtArgs["result"]["customer"]>
   composites: {}

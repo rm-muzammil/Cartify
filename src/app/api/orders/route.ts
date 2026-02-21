@@ -22,15 +22,17 @@ export async function GET() {
   }
 }
 
-export async function POST(req: NextRequest,{params}:{params:Promise<{orderId:string}>}) {
+// src/app/api/orders/route.ts
+
+// 1. Remove { params } from the arguments
+export async function POST(req: NextRequest) {
   try {
-    const {orderId} = await params
     const user = await getCurrentUser();
     if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { storeId,customerId } = await req.json();
+    const { storeId, customerId } = await req.json();
 
     if (!storeId || !customerId) {
       return NextResponse.json({ error: "Store and customer required" }, { status: 400 });
@@ -48,6 +50,7 @@ export async function POST(req: NextRequest,{params}:{params:Promise<{orderId:st
       return NextResponse.json({ error: "Store not found" }, { status: 404 });
     }
 
+    // Create the order
     const order = await prisma.order.create({
       data: {
         storeId, 
@@ -57,16 +60,15 @@ export async function POST(req: NextRequest,{params}:{params:Promise<{orderId:st
       },
     });
 
+    // 2. Use order.id (the one we just made) for the Audit Log
     await prisma.auditLog.create({
-  data: {
-    userId: user.id,
-    action: `Updated order ${orderId} status to ${status}`,
-    entity: "order",
-    entityId: orderId,
-  },
-});
-
-    
+      data: {
+        userId: user.id,
+        action: `Created new order ${order.id}`, // Changed text to 'Created'
+        entity: "order",
+        entityId: order.id,
+      },
+    });
 
     return NextResponse.json(order);
 

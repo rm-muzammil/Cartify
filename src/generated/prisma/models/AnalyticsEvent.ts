@@ -403,14 +403,6 @@ export type AnalyticsEventUncheckedUpdateManyWithoutStoreNestedInput = {
   deleteMany?: Prisma.AnalyticsEventScalarWhereInput | Prisma.AnalyticsEventScalarWhereInput[]
 }
 
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type AnalyticsEventCreateWithoutStoreInput = {
   id?: string
   type: string

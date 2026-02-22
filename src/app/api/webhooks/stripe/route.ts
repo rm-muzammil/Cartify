@@ -3,69 +3,77 @@ import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe";
 import prisma from "@/lib/db";
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-
 export async function POST(req: Request) {
+  const body = await req.text();
+  const bodyHeaders = await headers();
+  const signature = bodyHeaders.get("stripe-signature")!;
+
   try {
-    const body = await req.text();
-    const bodyHeaders = await headers()
-    const signature = bodyHeaders.get("stripe-signature");
-
-    if (!signature) {
-      return NextResponse.json({ error: "No signature" }, { status: 400 });
-    }
-
-    // Verify webhook signature (security)
     const event = stripe.webhooks.constructEvent(
       body,
       signature,
-      webhookSecret
+      process.env.STRIPE_WEBHOOK_SECRET!
     );
 
-    switch (event.type) {
-      case "payment_intent.succeeded": {
-        const paymentIntent = event.data.object as any;
+if (event.type === "payment_intent.succeeded") {
+  const paymentIntent = event.data.object as any;
+  const orderId = paymentIntent.metadata?.orderId;
 
-        const orderId = paymentIntent.metadata?.orderId;
+  if (!orderId) return;
 
-        if (orderId) {
-          await prisma.order.update({
-            where: { id: orderId },
-            data: {
-              status: "paid",
-            },
-          });
-        }
+  await prisma.$transaction(async (tx) => {
+    const order = await tx.order.findUnique({
+      where: { id: orderId },
+      include: { items: true },
+    });
 
-        break;
+    if (!order || order.status === "paid") return;
+
+    // Decrement stock safely
+    for (const item of order.items) {
+      const product = await tx.product.findUnique({
+        where: { id: item.productId },
+      });
+
+      if (!product || product.stock < item.quantity) {
+        throw new Error("Stock inconsistency detected");
       }
 
-      case "payment_intent.payment_failed": {
-        const paymentIntent = event.data.object as any;
-        const orderId = paymentIntent.metadata?.orderId;
+      await tx.product.update({
+        where: { id: product.id },
+        data: {
+          stock: {
+            decrement: item.quantity,
+          },
+        },
+      });
+    }
 
-        if (orderId) {
-          await prisma.order.update({
-            where: { id: orderId },
-            data: {
-              status: "failed",
-            },
-          });
-        }
+    await tx.order.update({
+      where: { id: orderId },
+      data: { status: "paid" },
+    });
+  });
 
-        break;
+  console.log("Order completed with stock decrement:", orderId);
+}
+
+    if (event.type === "payment_intent.payment_failed") {
+      const paymentIntent = event.data.object as any;
+
+      const orderId = paymentIntent.metadata?.orderId;
+
+      if (orderId) {
+        await prisma.order.update({
+          where: { id: orderId },
+          data: { status: "failed" },
+        });
       }
-
-      default:
-        console.log(`Unhandled event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true });
-  } catch (error) {
-    console.error("Webhook error:", error);
-    return NextResponse.json(
-      { error: "Webhook error" },
-      { status: 400 }
-    );
+  } catch (err) {
+    console.error("Webhook error:", err);
+    return NextResponse.json({ error: "Webhook failed" }, { status: 400 });
   }
 }

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Store" ADD COLUMN     "commissionRate" DOUBLE PRECISION NOT NULL DEFAULT 10;

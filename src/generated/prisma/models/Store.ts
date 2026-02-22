@@ -20,8 +20,18 @@ export type StoreModel = runtime.Types.Result.DefaultSelection<Prisma.$StorePayl
 
 export type AggregateStore = {
   _count: StoreCountAggregateOutputType | null
+  _avg: StoreAvgAggregateOutputType | null
+  _sum: StoreSumAggregateOutputType | null
   _min: StoreMinAggregateOutputType | null
   _max: StoreMaxAggregateOutputType | null
+}
+
+export type StoreAvgAggregateOutputType = {
+  commissionRate: number | null
+}
+
+export type StoreSumAggregateOutputType = {
+  commissionRate: number | null
 }
 
 export type StoreMinAggregateOutputType = {
@@ -31,6 +41,7 @@ export type StoreMinAggregateOutputType = {
   stripeAccountId: string | null
   stripeOnboarded: boolean | null
   createdAt: Date | null
+  commissionRate: number | null
 }
 
 export type StoreMaxAggregateOutputType = {
@@ -40,6 +51,7 @@ export type StoreMaxAggregateOutputType = {
   stripeAccountId: string | null
   stripeOnboarded: boolean | null
   createdAt: Date | null
+  commissionRate: number | null
 }
 
 export type StoreCountAggregateOutputType = {
@@ -49,9 +61,18 @@ export type StoreCountAggregateOutputType = {
   stripeAccountId: number
   stripeOnboarded: number
   createdAt: number
+  commissionRate: number
   _all: number
 }
 
+
+export type StoreAvgAggregateInputType = {
+  commissionRate?: true
+}
+
+export type StoreSumAggregateInputType = {
+  commissionRate?: true
+}
 
 export type StoreMinAggregateInputType = {
   id?: true
@@ -60,6 +81,7 @@ export type StoreMinAggregateInputType = {
   stripeAccountId?: true
   stripeOnboarded?: true
   createdAt?: true
+  commissionRate?: true
 }
 
 export type StoreMaxAggregateInputType = {
@@ -69,6 +91,7 @@ export type StoreMaxAggregateInputType = {
   stripeAccountId?: true
   stripeOnboarded?: true
   createdAt?: true
+  commissionRate?: true
 }
 
 export type StoreCountAggregateInputType = {
@@ -78,6 +101,7 @@ export type StoreCountAggregateInputType = {
   stripeAccountId?: true
   stripeOnboarded?: true
   createdAt?: true
+  commissionRate?: true
   _all?: true
 }
 
@@ -119,6 +143,18 @@ export type StoreAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: StoreAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: StoreSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: StoreMinAggregateInputType
@@ -149,6 +185,8 @@ export type StoreGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: StoreCountAggregateInputType | true
+  _avg?: StoreAvgAggregateInputType
+  _sum?: StoreSumAggregateInputType
   _min?: StoreMinAggregateInputType
   _max?: StoreMaxAggregateInputType
 }
@@ -160,7 +198,10 @@ export type StoreGroupByOutputType = {
   stripeAccountId: string | null
   stripeOnboarded: boolean
   createdAt: Date
+  commissionRate: number
   _count: StoreCountAggregateOutputType | null
+  _avg: StoreAvgAggregateOutputType | null
+  _sum: StoreSumAggregateOutputType | null
   _min: StoreMinAggregateOutputType | null
   _max: StoreMaxAggregateOutputType | null
 }
@@ -190,6 +231,7 @@ export type StoreWhereInput = {
   stripeAccountId?: Prisma.StringNullableFilter<"Store"> | string | null
   stripeOnboarded?: Prisma.BoolFilter<"Store"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Store"> | Date | string
+  commissionRate?: Prisma.FloatFilter<"Store"> | number
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   customers?: Prisma.CustomerListRelationFilter
   products?: Prisma.ProductListRelationFilter
@@ -205,6 +247,7 @@ export type StoreOrderByWithRelationInput = {
   stripeAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   stripeOnboarded?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   customers?: Prisma.CustomerOrderByRelationAggregateInput
   products?: Prisma.ProductOrderByRelationAggregateInput
@@ -223,6 +266,7 @@ export type StoreWhereUniqueInput = Prisma.AtLeast<{
   stripeAccountId?: Prisma.StringNullableFilter<"Store"> | string | null
   stripeOnboarded?: Prisma.BoolFilter<"Store"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Store"> | Date | string
+  commissionRate?: Prisma.FloatFilter<"Store"> | number
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   customers?: Prisma.CustomerListRelationFilter
   products?: Prisma.ProductListRelationFilter
@@ -238,9 +282,12 @@ export type StoreOrderByWithAggregationInput = {
   stripeAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   stripeOnboarded?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
   _count?: Prisma.StoreCountOrderByAggregateInput
+  _avg?: Prisma.StoreAvgOrderByAggregateInput
   _max?: Prisma.StoreMaxOrderByAggregateInput
   _min?: Prisma.StoreMinOrderByAggregateInput
+  _sum?: Prisma.StoreSumOrderByAggregateInput
 }
 
 export type StoreScalarWhereWithAggregatesInput = {
@@ -253,6 +300,7 @@ export type StoreScalarWhereWithAggregatesInput = {
   stripeAccountId?: Prisma.StringNullableWithAggregatesFilter<"Store"> | string | null
   stripeOnboarded?: Prisma.BoolWithAggregatesFilter<"Store"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Store"> | Date | string
+  commissionRate?: Prisma.FloatWithAggregatesFilter<"Store"> | number
 }
 
 export type StoreCreateInput = {
@@ -261,6 +309,7 @@ export type StoreCreateInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   customers?: Prisma.CustomerCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
@@ -276,6 +325,7 @@ export type StoreUncheckedCreateInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
@@ -289,6 +339,7 @@ export type StoreUpdateInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
@@ -304,6 +355,7 @@ export type StoreUncheckedUpdateInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
@@ -318,6 +370,7 @@ export type StoreCreateManyInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
 }
 
 export type StoreUpdateManyMutationInput = {
@@ -326,6 +379,7 @@ export type StoreUpdateManyMutationInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type StoreUncheckedUpdateManyInput = {
@@ -335,6 +389,7 @@ export type StoreUncheckedUpdateManyInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type StoreListRelationFilter = {
@@ -354,6 +409,11 @@ export type StoreCountOrderByAggregateInput = {
   stripeAccountId?: Prisma.SortOrder
   stripeOnboarded?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+}
+
+export type StoreAvgOrderByAggregateInput = {
+  commissionRate?: Prisma.SortOrder
 }
 
 export type StoreMaxOrderByAggregateInput = {
@@ -363,6 +423,7 @@ export type StoreMaxOrderByAggregateInput = {
   stripeAccountId?: Prisma.SortOrder
   stripeOnboarded?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
 }
 
 export type StoreMinOrderByAggregateInput = {
@@ -372,6 +433,11 @@ export type StoreMinOrderByAggregateInput = {
   stripeAccountId?: Prisma.SortOrder
   stripeOnboarded?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  commissionRate?: Prisma.SortOrder
+}
+
+export type StoreSumOrderByAggregateInput = {
+  commissionRate?: Prisma.SortOrder
 }
 
 export type StoreScalarRelationFilter = {
@@ -427,6 +493,14 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type StoreCreateNestedOneWithoutMembersInput = {
@@ -505,6 +579,7 @@ export type StoreCreateWithoutOwnerInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   customers?: Prisma.CustomerCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderCreateNestedManyWithoutStoreInput
@@ -518,6 +593,7 @@ export type StoreUncheckedCreateWithoutOwnerInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
@@ -561,6 +637,7 @@ export type StoreScalarWhereInput = {
   stripeAccountId?: Prisma.StringNullableFilter<"Store"> | string | null
   stripeOnboarded?: Prisma.BoolFilter<"Store"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Store"> | Date | string
+  commissionRate?: Prisma.FloatFilter<"Store"> | number
 }
 
 export type StoreCreateWithoutMembersInput = {
@@ -569,6 +646,7 @@ export type StoreCreateWithoutMembersInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   customers?: Prisma.CustomerCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
@@ -583,6 +661,7 @@ export type StoreUncheckedCreateWithoutMembersInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
@@ -611,6 +690,7 @@ export type StoreUpdateWithoutMembersInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
@@ -625,6 +705,7 @@ export type StoreUncheckedUpdateWithoutMembersInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
@@ -637,6 +718,7 @@ export type StoreCreateWithoutProductsInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   customers?: Prisma.CustomerCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderCreateNestedManyWithoutStoreInput
@@ -651,6 +733,7 @@ export type StoreUncheckedCreateWithoutProductsInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
   members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutStoreInput
@@ -679,6 +762,7 @@ export type StoreUpdateWithoutProductsInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUpdateManyWithoutStoreNestedInput
@@ -693,6 +777,7 @@ export type StoreUncheckedUpdateWithoutProductsInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
   members?: Prisma.TeamMemberUncheckedUpdateManyWithoutStoreNestedInput
@@ -705,6 +790,7 @@ export type StoreCreateWithoutOrdersInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   customers?: Prisma.CustomerCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
@@ -719,6 +805,7 @@ export type StoreUncheckedCreateWithoutOrdersInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutStoreInput
@@ -747,6 +834,7 @@ export type StoreUpdateWithoutOrdersInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
@@ -761,6 +849,7 @@ export type StoreUncheckedUpdateWithoutOrdersInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   members?: Prisma.TeamMemberUncheckedUpdateManyWithoutStoreNestedInput
@@ -773,6 +862,7 @@ export type StoreCreateWithoutEventsInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   customers?: Prisma.CustomerCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
@@ -787,6 +877,7 @@ export type StoreUncheckedCreateWithoutEventsInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutStoreInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
@@ -815,6 +906,7 @@ export type StoreUpdateWithoutEventsInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
@@ -829,6 +921,7 @@ export type StoreUncheckedUpdateWithoutEventsInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
@@ -841,6 +934,7 @@ export type StoreCreateWithoutCustomersInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   owner: Prisma.UserCreateNestedOneWithoutStoresInput
   products?: Prisma.ProductCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderCreateNestedManyWithoutStoreInput
@@ -855,6 +949,7 @@ export type StoreUncheckedCreateWithoutCustomersInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutStoreInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutStoreInput
   members?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutStoreInput
@@ -883,6 +978,7 @@ export type StoreUpdateWithoutCustomersInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutStoresNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUpdateManyWithoutStoreNestedInput
@@ -897,6 +993,7 @@ export type StoreUncheckedUpdateWithoutCustomersInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
   members?: Prisma.TeamMemberUncheckedUpdateManyWithoutStoreNestedInput
@@ -909,6 +1006,7 @@ export type StoreCreateManyOwnerInput = {
   stripeAccountId?: string | null
   stripeOnboarded?: boolean
   createdAt?: Date | string
+  commissionRate?: number
 }
 
 export type StoreUpdateWithoutOwnerInput = {
@@ -917,6 +1015,7 @@ export type StoreUpdateWithoutOwnerInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   customers?: Prisma.CustomerUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUpdateManyWithoutStoreNestedInput
@@ -930,6 +1029,7 @@ export type StoreUncheckedUpdateWithoutOwnerInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutStoreNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutStoreNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutStoreNestedInput
@@ -943,6 +1043,7 @@ export type StoreUncheckedUpdateManyWithoutOwnerInput = {
   stripeAccountId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stripeOnboarded?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commissionRate?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 
@@ -1019,6 +1120,7 @@ export type StoreSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   stripeAccountId?: boolean
   stripeOnboarded?: boolean
   createdAt?: boolean
+  commissionRate?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   customers?: boolean | Prisma.Store$customersArgs<ExtArgs>
   products?: boolean | Prisma.Store$productsArgs<ExtArgs>
@@ -1035,6 +1137,7 @@ export type StoreSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   stripeAccountId?: boolean
   stripeOnboarded?: boolean
   createdAt?: boolean
+  commissionRate?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["store"]>
 
@@ -1045,6 +1148,7 @@ export type StoreSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   stripeAccountId?: boolean
   stripeOnboarded?: boolean
   createdAt?: boolean
+  commissionRate?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["store"]>
 
@@ -1055,9 +1159,10 @@ export type StoreSelectScalar = {
   stripeAccountId?: boolean
   stripeOnboarded?: boolean
   createdAt?: boolean
+  commissionRate?: boolean
 }
 
-export type StoreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "stripeAccountId" | "stripeOnboarded" | "createdAt", ExtArgs["result"]["store"]>
+export type StoreOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "stripeAccountId" | "stripeOnboarded" | "createdAt" | "commissionRate", ExtArgs["result"]["store"]>
 export type StoreInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   customers?: boolean | Prisma.Store$customersArgs<ExtArgs>
@@ -1091,6 +1196,7 @@ export type $StorePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     stripeAccountId: string | null
     stripeOnboarded: boolean
     createdAt: Date
+    commissionRate: number
   }, ExtArgs["result"]["store"]>
   composites: {}
 }
@@ -1526,6 +1632,7 @@ export interface StoreFieldRefs {
   readonly stripeAccountId: Prisma.FieldRef<"Store", 'String'>
   readonly stripeOnboarded: Prisma.FieldRef<"Store", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Store", 'DateTime'>
+  readonly commissionRate: Prisma.FieldRef<"Store", 'Float'>
 }
     
 

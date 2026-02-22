@@ -28,10 +28,12 @@ export type AggregateOrder = {
 
 export type OrderAvgAggregateOutputType = {
   total: number | null
+  platformFee: number | null
 }
 
 export type OrderSumAggregateOutputType = {
   total: number | null
+  platformFee: number | null
 }
 
 export type OrderMinAggregateOutputType = {
@@ -42,6 +44,7 @@ export type OrderMinAggregateOutputType = {
   status: $Enums.OrderStatus | null
   stripePaymentIntentId: string | null
   createdAt: Date | null
+  platformFee: number | null
 }
 
 export type OrderMaxAggregateOutputType = {
@@ -52,6 +55,7 @@ export type OrderMaxAggregateOutputType = {
   status: $Enums.OrderStatus | null
   stripePaymentIntentId: string | null
   createdAt: Date | null
+  platformFee: number | null
 }
 
 export type OrderCountAggregateOutputType = {
@@ -62,16 +66,19 @@ export type OrderCountAggregateOutputType = {
   status: number
   stripePaymentIntentId: number
   createdAt: number
+  platformFee: number
   _all: number
 }
 
 
 export type OrderAvgAggregateInputType = {
   total?: true
+  platformFee?: true
 }
 
 export type OrderSumAggregateInputType = {
   total?: true
+  platformFee?: true
 }
 
 export type OrderMinAggregateInputType = {
@@ -82,6 +89,7 @@ export type OrderMinAggregateInputType = {
   status?: true
   stripePaymentIntentId?: true
   createdAt?: true
+  platformFee?: true
 }
 
 export type OrderMaxAggregateInputType = {
@@ -92,6 +100,7 @@ export type OrderMaxAggregateInputType = {
   status?: true
   stripePaymentIntentId?: true
   createdAt?: true
+  platformFee?: true
 }
 
 export type OrderCountAggregateInputType = {
@@ -102,6 +111,7 @@ export type OrderCountAggregateInputType = {
   status?: true
   stripePaymentIntentId?: true
   createdAt?: true
+  platformFee?: true
   _all?: true
 }
 
@@ -199,6 +209,7 @@ export type OrderGroupByOutputType = {
   status: $Enums.OrderStatus
   stripePaymentIntentId: string | null
   createdAt: Date
+  platformFee: number | null
   _count: OrderCountAggregateOutputType | null
   _avg: OrderAvgAggregateOutputType | null
   _sum: OrderSumAggregateOutputType | null
@@ -232,6 +243,7 @@ export type OrderWhereInput = {
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.StringNullableFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  platformFee?: Prisma.FloatNullableFilter<"Order"> | number | null
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
   items?: Prisma.OrderItemListRelationFilter
   payment?: Prisma.XOR<Prisma.PaymentNullableScalarRelationFilter, Prisma.PaymentWhereInput> | null
@@ -246,6 +258,7 @@ export type OrderOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  platformFee?: Prisma.SortOrderInput | Prisma.SortOrder
   store?: Prisma.StoreOrderByWithRelationInput
   items?: Prisma.OrderItemOrderByRelationAggregateInput
   payment?: Prisma.PaymentOrderByWithRelationInput
@@ -263,6 +276,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.StringNullableFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  platformFee?: Prisma.FloatNullableFilter<"Order"> | number | null
   store?: Prisma.XOR<Prisma.StoreScalarRelationFilter, Prisma.StoreWhereInput>
   items?: Prisma.OrderItemListRelationFilter
   payment?: Prisma.XOR<Prisma.PaymentNullableScalarRelationFilter, Prisma.PaymentWhereInput> | null
@@ -277,6 +291,7 @@ export type OrderOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  platformFee?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OrderCountOrderByAggregateInput
   _avg?: Prisma.OrderAvgOrderByAggregateInput
   _max?: Prisma.OrderMaxOrderByAggregateInput
@@ -295,6 +310,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
+  platformFee?: Prisma.FloatNullableWithAggregatesFilter<"Order"> | number | null
 }
 
 export type OrderCreateInput = {
@@ -303,6 +319,7 @@ export type OrderCreateInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   store: Prisma.StoreCreateNestedOneWithoutOrdersInput
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentCreateNestedOneWithoutOrderInput
@@ -317,6 +334,7 @@ export type OrderUncheckedCreateInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutOrderInput
 }
@@ -327,6 +345,7 @@ export type OrderUpdateInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   store?: Prisma.StoreUpdateOneRequiredWithoutOrdersNestedInput
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutOrderNestedInput
@@ -341,6 +360,7 @@ export type OrderUncheckedUpdateInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutOrderNestedInput
 }
@@ -353,6 +373,7 @@ export type OrderCreateManyInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
 }
 
 export type OrderUpdateManyMutationInput = {
@@ -361,6 +382,7 @@ export type OrderUpdateManyMutationInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 export type OrderUncheckedUpdateManyInput = {
@@ -371,6 +393,7 @@ export type OrderUncheckedUpdateManyInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 export type OrderListRelationFilter = {
@@ -391,10 +414,12 @@ export type OrderCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  platformFee?: Prisma.SortOrder
 }
 
 export type OrderAvgOrderByAggregateInput = {
   total?: Prisma.SortOrder
+  platformFee?: Prisma.SortOrder
 }
 
 export type OrderMaxOrderByAggregateInput = {
@@ -405,6 +430,7 @@ export type OrderMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  platformFee?: Prisma.SortOrder
 }
 
 export type OrderMinOrderByAggregateInput = {
@@ -415,10 +441,12 @@ export type OrderMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   stripePaymentIntentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  platformFee?: Prisma.SortOrder
 }
 
 export type OrderSumOrderByAggregateInput = {
   total?: Prisma.SortOrder
+  platformFee?: Prisma.SortOrder
 }
 
 export type OrderScalarRelationFilter = {
@@ -470,6 +498,14 @@ export type OrderUncheckedUpdateManyWithoutStoreNestedInput = {
 
 export type EnumOrderStatusFieldUpdateOperationsInput = {
   set?: $Enums.OrderStatus
+}
+
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type OrderCreateNestedOneWithoutItemsInput = {
@@ -548,6 +584,7 @@ export type OrderCreateWithoutStoreInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentCreateNestedOneWithoutOrderInput
   customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
@@ -560,6 +597,7 @@ export type OrderUncheckedCreateWithoutStoreInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutOrderInput
 }
@@ -601,6 +639,7 @@ export type OrderScalarWhereInput = {
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.StringNullableFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  platformFee?: Prisma.FloatNullableFilter<"Order"> | number | null
 }
 
 export type OrderCreateWithoutItemsInput = {
@@ -609,6 +648,7 @@ export type OrderCreateWithoutItemsInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   store: Prisma.StoreCreateNestedOneWithoutOrdersInput
   payment?: Prisma.PaymentCreateNestedOneWithoutOrderInput
   customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
@@ -622,6 +662,7 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutOrderInput
 }
 
@@ -647,6 +688,7 @@ export type OrderUpdateWithoutItemsInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   store?: Prisma.StoreUpdateOneRequiredWithoutOrdersNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutOrderNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
@@ -660,6 +702,7 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutOrderNestedInput
 }
 
@@ -669,6 +712,7 @@ export type OrderCreateWithoutPaymentInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   store: Prisma.StoreCreateNestedOneWithoutOrdersInput
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   customer: Prisma.CustomerCreateNestedOneWithoutOrdersInput
@@ -682,6 +726,7 @@ export type OrderUncheckedCreateWithoutPaymentInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
 }
 
@@ -707,6 +752,7 @@ export type OrderUpdateWithoutPaymentInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   store?: Prisma.StoreUpdateOneRequiredWithoutOrdersNestedInput
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
@@ -720,6 +766,7 @@ export type OrderUncheckedUpdateWithoutPaymentInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
 }
 
@@ -729,6 +776,7 @@ export type OrderCreateWithoutCustomerInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   store: Prisma.StoreCreateNestedOneWithoutOrdersInput
   items?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentCreateNestedOneWithoutOrderInput
@@ -741,6 +789,7 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
   items?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
   payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutOrderInput
 }
@@ -778,6 +827,7 @@ export type OrderCreateManyStoreInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
 }
 
 export type OrderUpdateWithoutStoreInput = {
@@ -786,6 +836,7 @@ export type OrderUpdateWithoutStoreInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutOrderNestedInput
   customer?: Prisma.CustomerUpdateOneRequiredWithoutOrdersNestedInput
@@ -798,6 +849,7 @@ export type OrderUncheckedUpdateWithoutStoreInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutOrderNestedInput
 }
@@ -809,6 +861,7 @@ export type OrderUncheckedUpdateManyWithoutStoreInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 export type OrderCreateManyCustomerInput = {
@@ -818,6 +871,7 @@ export type OrderCreateManyCustomerInput = {
   status: $Enums.OrderStatus
   stripePaymentIntentId?: string | null
   createdAt?: Date | string
+  platformFee?: number | null
 }
 
 export type OrderUpdateWithoutCustomerInput = {
@@ -826,6 +880,7 @@ export type OrderUpdateWithoutCustomerInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   store?: Prisma.StoreUpdateOneRequiredWithoutOrdersNestedInput
   items?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentUpdateOneWithoutOrderNestedInput
@@ -838,6 +893,7 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   items?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   payment?: Prisma.PaymentUncheckedUpdateOneWithoutOrderNestedInput
 }
@@ -849,6 +905,7 @@ export type OrderUncheckedUpdateManyWithoutCustomerInput = {
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   stripePaymentIntentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  platformFee?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
 }
 
 
@@ -890,6 +947,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   status?: boolean
   stripePaymentIntentId?: boolean
   createdAt?: boolean
+  platformFee?: boolean
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
   payment?: boolean | Prisma.Order$paymentArgs<ExtArgs>
@@ -905,6 +963,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   status?: boolean
   stripePaymentIntentId?: boolean
   createdAt?: boolean
+  platformFee?: boolean
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
@@ -917,6 +976,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   status?: boolean
   stripePaymentIntentId?: boolean
   createdAt?: boolean
+  platformFee?: boolean
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
   customer?: boolean | Prisma.CustomerDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
@@ -929,9 +989,10 @@ export type OrderSelectScalar = {
   status?: boolean
   stripePaymentIntentId?: boolean
   createdAt?: boolean
+  platformFee?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storeId" | "customerId" | "total" | "status" | "stripePaymentIntentId" | "createdAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storeId" | "customerId" | "total" | "status" | "stripePaymentIntentId" | "createdAt" | "platformFee", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   store?: boolean | Prisma.StoreDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
@@ -964,6 +1025,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     status: $Enums.OrderStatus
     stripePaymentIntentId: string | null
     createdAt: Date
+    platformFee: number | null
   }, ExtArgs["result"]["order"]>
   composites: {}
 }
@@ -1398,6 +1460,7 @@ export interface OrderFieldRefs {
   readonly status: Prisma.FieldRef<"Order", 'OrderStatus'>
   readonly stripePaymentIntentId: Prisma.FieldRef<"Order", 'String'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly platformFee: Prisma.FieldRef<"Order", 'Float'>
 }
     
 

@@ -44,6 +44,8 @@ model Store {
   stripeOnboarded   Boolean   @default(false)
   createdAt DateTime @default(now())
 
+  commissionRate Float @default(10)
+
 
   owner   User @relation(fields: [ownerId], references: [id])
 
@@ -133,6 +135,8 @@ model Order {
   status    OrderStatus
   stripePaymentIntentId String?
   createdAt DateTime @default(now())
+
+  platformFee Float?
 
   store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
   items OrderItem[]

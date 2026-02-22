@@ -98,7 +98,8 @@ export const StoreScalarFieldEnum = {
   ownerId: 'ownerId',
   stripeAccountId: 'stripeAccountId',
   stripeOnboarded: 'stripeOnboarded',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  commissionRate: 'commissionRate'
 } as const
 
 export type StoreScalarFieldEnum = (typeof StoreScalarFieldEnum)[keyof typeof StoreScalarFieldEnum]
@@ -149,7 +150,8 @@ export const OrderScalarFieldEnum = {
   total: 'total',
   status: 'status',
   stripePaymentIntentId: 'stripePaymentIntentId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  platformFee: 'platformFee'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
